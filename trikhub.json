@@ -1,0 +1,11 @@
+{
+  "displayName": "Demo Notes (Python)",
+  "shortDescription": "Python conversational-mode trik for managing personal notes with persistent storage",
+  "categories": ["productivity", "notes"],
+  "keywords": ["notes", "storage", "productivity", "conversational-mode", "python"],
+  "author": {
+    "name": "Molefas",
+    "github": "Molefas"
+  },
+  "repository": "https://github.com/Molefas/trik-demo-notes-py"
+}

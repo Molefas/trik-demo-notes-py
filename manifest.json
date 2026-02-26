@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 2,
+  "id": "trik-demo-notes-py",
+  "name": "Demo Notes",
+  "description": "A demo trik for managing personal notes with persistent storage",
+  "version": "2.0.0",
+  "agent": {
+    "mode": "conversational",
+    "handoffDescription": "Manages personal notes — add, list, get, update, and delete notes with persistent storage",
+    "systemPromptFile": "./src/trik_demo_notes_py/prompts/system.md",
+    "model": { "capabilities": ["tool_use"] },
+    "domain": ["notes", "storage", "productivity"]
+  },
+  "tools": {
+    "addNote": {
+      "description": "Add a new note to persistent storage",
+      "logTemplate": "Added note: {{status}} ({{noteId}})",
+      "logSchema": {
+        "status": { "type": "string", "enum": ["created", "error"] },
+        "noteId": { "type": "string", "format": "id" }
+      }
+    },
+    "listNotes": {
+      "description": "List all stored notes with their titles and IDs",
+      "logTemplate": "Listed notes: {{count}} found",
+      "logSchema": {
+        "count": { "type": "integer" }
+      }
+    },
+    "getNote": {
+      "description": "Get a note by ID or title search",
+      "logTemplate": "Get note: {{status}} ({{noteId}})",
+      "logSchema": {
+        "status": { "type": "string", "enum": ["found", "not_found"] },
+        "noteId": { "type": "string", "format": "id" }
+      }
+    },
+    "updateNote": {
+      "description": "Update an existing note's title and/or content",
+      "logTemplate": "Update note: {{status}} ({{noteId}})",
+      "logSchema": {
+        "status": { "type": "string", "enum": ["updated", "not_found", "no_changes"] },
+        "noteId": { "type": "string", "format": "id" }
+      }
+    },
+    "deleteNote": {
+      "description": "Delete a note by ID or title search",
+      "logTemplate": "Delete note: {{status}} ({{noteId}})",
+      "logSchema": {
+        "status": { "type": "string", "enum": ["deleted", "not_found"] },
+        "noteId": { "type": "string", "format": "id" }
+      }
+    }
+  },
+  "capabilities": {
+    "storage": {
+      "enabled": true
+    }
+  },
+  "limits": { "maxTurnTimeMs": 30000 },
+  "entry": {
+    "module": "./src/trik_demo_notes_py/main.py",
+    "export": "default",
+    "runtime": "python"
+  }
+}
