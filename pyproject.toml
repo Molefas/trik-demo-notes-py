@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "trik-demo-notes-py"
-version = "2.0.1"
+version = "2.0.2"
 description = "A demo trik for managing personal notes with persistent storage"
 requires-python = ">=3.10"
 license = "MIT"
@@ -19,3 +19,6 @@ dependencies = [
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["trik_demo_notes_py*"]
+
+[tool.setuptools.package-data]
+trik_demo_notes_py = ["manifest.json", "prompts/*.md"]
