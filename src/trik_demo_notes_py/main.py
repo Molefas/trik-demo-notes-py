@@ -8,7 +8,7 @@ Uses the wrap_agent() pattern for multi-turn conversation via handoff.
 from __future__ import annotations
 
 import json
-import os
+
 import time
 from pathlib import Path
 from typing import Any, Optional
@@ -176,7 +176,7 @@ def _build_tools(storage: TrikStorageContext):
 default = wrap_agent(lambda context: create_react_agent(
     model=ChatAnthropic(
         model="claude-sonnet-4-20250514",
-        api_key=os.environ.get("ANTHROPIC_API_KEY"),
+        api_key=context.config.get("ANTHROPIC_API_KEY"),
     ),
     tools=[*_build_tools(context.storage), transfer_back_tool],
     prompt=_SYSTEM_PROMPT,
