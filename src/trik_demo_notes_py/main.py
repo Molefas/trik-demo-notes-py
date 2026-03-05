@@ -8,9 +8,7 @@ Uses the wrap_agent() pattern for multi-turn conversation via handoff.
 from __future__ import annotations
 
 import json
-
 import time
-from pathlib import Path
 from typing import Any, Optional
 
 from langchain_anthropic import ChatAnthropic
@@ -20,8 +18,24 @@ from langgraph.prebuilt import create_react_agent
 from trikhub.sdk import wrap_agent, transfer_back_tool, TrikContext, TrikStorageContext
 
 
-_PROMPT_PATH = Path(__file__).parent / "prompts" / "system.md"
-_SYSTEM_PROMPT = _PROMPT_PATH.read_text(encoding="utf-8")
+_SYSTEM_PROMPT = """# Demo Notes
+
+You are a personal notes assistant. You help users manage their notes using persistent storage.
+
+## Your tools
+
+- **addNote**: Create a new note with a title and content
+- **listNotes**: List all stored notes
+- **getNote**: Retrieve a note by ID or title search
+- **updateNote**: Update a note's title or content
+- **deleteNote**: Delete a note by ID or title search
+
+## Guidelines
+
+- When the user wants to find a note, try searching by title first
+- Show note content when the user asks to read or view a note
+- Confirm before deleting notes
+- When the user's request is outside your expertise, use the transfer_back tool to return to the main agent"""
 
 
 # ============================================================================
